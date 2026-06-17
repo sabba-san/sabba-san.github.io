@@ -1,25 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
 import { hobbyPhotos } from "@/lib/photos";
 import { easeSpring, easeSmooth } from "@/lib/motion";
 
-const bentoIndexes = new Set([0, 5, 10, 13]);
-
-function spanClass(index: number) {
-  if (index === 0) return "md:col-span-2 md:row-span-2";
-  if (bentoIndexes.has(index)) return "md:col-span-2";
-  return "";
-}
-
 function PhotoCard({
-  src,
+  photo,
   index,
   onClick,
 }: {
-  src: string;
+  photo: (typeof hobbyPhotos)[number];
   index: number;
   onClick: () => void;
 }) {
@@ -27,43 +19,166 @@ function PhotoCard({
     <motion.button
       initial={{ opacity: 0, y: 40, filter: "blur(6px)" }}
       whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: true, amount: 0.15 }}
       transition={{
         duration: 0.8,
         ease: easeSpring,
-        delay: (index % 8) * 0.04,
+        delay: (index % 6) * 0.06,
       }}
       onClick={onClick}
-      className={`group relative ${spanClass(index)}`}
+      className="masonry-item group w-full text-left"
     >
-      <div className="p-1 rounded-[1.25rem] bg-black/[0.03] dark:bg-white/[0.05] ring-1 ring-black/[0.03] dark:ring-white/[0.05] h-full">
-        <div
-          className={`rounded-[calc(1.25rem-0.25rem)] overflow-hidden bg-surface relative shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] ${
-            index === 0 ? "aspect-square" : "aspect-[4/3]"
-          }`}
-        >
-          <Image
-            src={src}
-            alt={`Documentary photograph ${index + 1}`}
-            fill
-            className="object-cover transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-105"
-            sizes={
-              index === 0
-                ? "(max-width: 768px) 100vw, 50vw"
-                : bentoIndexes.has(index)
-                  ? "(max-width: 768px) 100vw, 50vw"
-                  : "(max-width: 768px) 100vw, 25vw"
-            }
-          />
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/[0.06] transition-colors duration-500" />
+      <div className="p-1 rounded-[1.25rem] bg-black/[0.03] dark:bg-white/[0.05] ring-1 ring-black/[0.03] dark:ring-white/[0.05] overflow-hidden">
+        <div className="rounded-[calc(1.25rem-0.25rem)] overflow-hidden bg-surface relative shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]">
+          <div className={`relative w-full ${photo.aspect}`}>
+            <Image
+              src={photo.src}
+              alt={photo.alt}
+              fill
+              className="object-cover transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-105"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]">
+              <p className="text-xs font-medium text-white/90 tracking-wide">
+                {photo.title}
+              </p>
+              <p className="text-[10px] text-white/60 mt-0.5 line-clamp-1 font-mono">
+                {photo.description}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </motion.button>
   );
 }
 
+function Lightbox({
+  index,
+  onClose,
+  onPrev,
+  onNext,
+}: {
+  index: number;
+  onClose: () => void;
+  onPrev: () => void;
+  onNext: () => void;
+}) {
+  const photo = hobbyPhotos[index];
+
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowLeft") onPrev();
+      if (e.key === "ArrowRight") onNext();
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [onClose, onPrev, onNext]);
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = ""; };
+  }, []);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.35, ease: easeSpring }}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-2xl p-4 sm:p-8"
+      onClick={onClose}
+    >
+      <div className="relative flex flex-col items-center max-h-full w-full max-w-5xl">
+        <motion.div
+          key={index}
+          initial={{ scale: 0.92, opacity: 0, filter: "blur(8px)" }}
+          animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
+          exit={{ scale: 0.92, opacity: 0, filter: "blur(8px)" }}
+          transition={{ duration: 0.5, ease: easeSpring }}
+          className="relative w-full flex-1 flex items-center justify-center min-h-0"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="relative w-full max-h-[75vh] aspect-[4/3] rounded-xl overflow-hidden shadow-2xl">
+            <Image
+              src={photo.src}
+              alt={photo.alt}
+              fill
+              className="object-contain"
+              sizes="90vw"
+              priority
+            />
+          </div>
+        </motion.div>
+
+        <motion.div
+          key={`cap-${index}`}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: easeSpring, delay: 0.15 }}
+          className="mt-5 text-center max-w-lg px-4"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <p className="text-sm font-medium text-white/90 tracking-wide">
+            {photo.title}
+          </p>
+          <p className="text-xs text-white/50 mt-1.5 leading-relaxed font-mono">
+            {photo.description}
+          </p>
+        </motion.div>
+      </div>
+
+      <button
+        onClick={onClose}
+        className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 backdrop-blur-xl flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 transition-all duration-300"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+          <path d="M18 6L6 18" />
+          <path d="M6 6l12 12" />
+        </svg>
+      </button>
+
+      <button
+        onClick={(e) => { e.stopPropagation(); onPrev(); }}
+        className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 backdrop-blur-xl flex items-center justify-center text-white/70 hover:text-white hover:bg-white/20 transition-all duration-300"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+          <path d="M15 18l-6-6 6-6" />
+        </svg>
+      </button>
+
+      <button
+        onClick={(e) => { e.stopPropagation(); onNext(); }}
+        className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 backdrop-blur-xl flex items-center justify-center text-white/70 hover:text-white hover:bg-white/20 transition-all duration-300"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+          <path d="M9 18l6-6-6-6" />
+        </svg>
+      </button>
+
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden sm:block" onClick={(e) => e.stopPropagation()}>
+        <span className="text-[11px] text-white/40 font-mono tracking-widest">
+          {index + 1} / {hobbyPhotos.length}
+        </span>
+      </div>
+    </motion.div>
+  );
+}
+
 export default function Photography() {
   const [selected, setSelected] = useState<number | null>(null);
+
+  const close = useCallback(() => setSelected(null), []);
+  const prev = useCallback(
+    () => setSelected((s) => (s! > 0 ? s! - 1 : hobbyPhotos.length - 1)),
+    []
+  );
+  const next = useCallback(
+    () => setSelected((s) => (s! < hobbyPhotos.length - 1 ? s! + 1 : 0)),
+    []
+  );
 
   return (
     <section id="photography" className="px-6 py-40">
@@ -99,11 +214,11 @@ export default function Photography() {
           principles I bring back to how I build products.
         </motion.p>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 grid-flow-dense">
-          {hobbyPhotos.map((src, i) => (
+        <div className="masonry">
+          {hobbyPhotos.map((photo, i) => (
             <PhotoCard
-              key={src}
-              src={src}
+              key={photo.src}
+              photo={photo}
               index={i}
               onClick={() => setSelected(i)}
             />
@@ -111,95 +226,14 @@ export default function Photography() {
         </div>
       </div>
 
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {selected !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.35, ease: easeSpring }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-2xl p-4"
-            onClick={() => setSelected(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.92, opacity: 0, filter: "blur(8px)" }}
-              animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
-              exit={{ scale: 0.92, opacity: 0, filter: "blur(8px)" }}
-              transition={{ duration: 0.5, ease: easeSpring }}
-              className="relative max-w-4xl w-full aspect-[4/3] rounded-2xl overflow-hidden"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <Image
-                src={hobbyPhotos[selected]}
-                alt={`Documentary photograph ${selected + 1}`}
-                fill
-                className="object-contain"
-                sizes="90vw"
-              />
-            </motion.div>
-
-            <button
-              onClick={() => setSelected(null)}
-              className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 backdrop-blur-xl flex items-center justify-center text-white hover:bg-white/20 transition-colors duration-300"
-            >
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-              >
-                <path d="M18 6L6 18" />
-                <path d="M6 6l12 12" />
-              </svg>
-            </button>
-
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-3">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setSelected(selected > 0 ? selected - 1 : hobbyPhotos.length - 1);
-                }}
-                className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-xl flex items-center justify-center text-white hover:bg-white/20 transition-colors duration-300"
-              >
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                >
-                  <path d="M15 18l-6-6 6-6" />
-                </svg>
-              </button>
-              <span className="px-4 text-sm text-white/70 font-mono tracking-wider">
-                {selected + 1} / {hobbyPhotos.length}
-              </span>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setSelected(selected < hobbyPhotos.length - 1 ? selected + 1 : 0);
-                }}
-                className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-xl flex items-center justify-center text-white hover:bg-white/20 transition-colors duration-300"
-              >
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                >
-                  <path d="M9 18l6-6-6-6" />
-                </svg>
-              </button>
-            </div>
-          </motion.div>
+          <Lightbox
+            index={selected}
+            onClose={close}
+            onPrev={prev}
+            onNext={next}
+          />
         )}
       </AnimatePresence>
     </section>
