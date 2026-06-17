@@ -38,15 +38,7 @@ function PhotoCard({
               className="object-cover transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-105"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]">
-              <p className="text-xs font-medium text-white/90 tracking-wide">
-                {photo.title}
-              </p>
-              <p className="text-[10px] text-white/60 mt-0.5 line-clamp-1 font-mono">
-                {photo.description}
-              </p>
-            </div>
+
           </div>
         </div>
       </div>
@@ -91,17 +83,17 @@ function Lightbox({
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-2xl p-4 sm:p-8"
       onClick={onClose}
     >
-      <div className="relative flex flex-col items-center max-h-full w-full max-w-5xl">
+      <div className="flex items-center justify-center w-full max-w-5xl max-h-[85vh]">
         <motion.div
           key={index}
           initial={{ scale: 0.92, opacity: 0, filter: "blur(8px)" }}
           animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
           exit={{ scale: 0.92, opacity: 0, filter: "blur(8px)" }}
           transition={{ duration: 0.5, ease: easeSpring }}
-          className="relative w-full flex-1 flex items-center justify-center min-h-0"
+          className="relative w-full h-full flex items-center justify-center"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="relative w-full max-h-[75vh] aspect-[4/3] rounded-xl overflow-hidden shadow-2xl">
+          <div className="relative w-full max-h-[85vh] aspect-[4/3] rounded-xl overflow-hidden shadow-2xl">
             <Image
               src={photo.src}
               alt={photo.alt}
@@ -113,21 +105,7 @@ function Lightbox({
           </div>
         </motion.div>
 
-        <motion.div
-          key={`cap-${index}`}
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: easeSpring, delay: 0.15 }}
-          className="mt-5 text-center max-w-lg px-4"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <p className="text-sm font-medium text-white/90 tracking-wide">
-            {photo.title}
-          </p>
-          <p className="text-xs text-white/50 mt-1.5 leading-relaxed font-mono">
-            {photo.description}
-          </p>
-        </motion.div>
+
       </div>
 
       <button
