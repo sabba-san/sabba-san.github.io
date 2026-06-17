@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import Image from "next/image";
+import { blurFadeUp, easeSmooth } from "@/lib/motion";
 
 const techStack = [
   "Python",
@@ -13,41 +14,43 @@ const techStack = [
 
 export default function Projects() {
   return (
-    <section id="projects" className="px-6 py-32 sm:py-40 bg-surface/50">
+    <section id="projects" className="px-6 py-40 bg-surface/40">
       <div className="max-w-6xl mx-auto">
         <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] as const }}
-          className="text-sm font-mono tracking-[0.15em] uppercase text-muted mb-16"
+          transition={{ duration: 0.7, ease: easeSmooth }}
+          className="text-[10px] font-mono tracking-[0.2em] uppercase text-muted mb-20"
         >
           Projects
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          variants={blurFadeUp}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
-          className="grid md:grid-cols-2 gap-8 md:gap-12 items-start"
+          className="grid md:grid-cols-2 gap-12 md:gap-16 items-start"
         >
-          <div className="rounded-2xl overflow-hidden bg-surface aspect-[4/3] relative">
-            <Image
-              src="/photos/project/view pic.png"
-              alt="DLP Advisor 3D visualizer interface"
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
+          <div className="p-1.5 rounded-[2rem] bg-black/[0.04] dark:bg-white/[0.06] ring-1 ring-black/[0.04] dark:ring-white/[0.06]">
+            <div className="rounded-[calc(2rem-0.375rem)] overflow-hidden bg-surface aspect-[4/3] relative shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]">
+              <Image
+                src="/photos/project/view pic.png"
+                alt="DLP Advisor 3D visualizer interface"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-6 pt-2">
             <div>
-              <p className="text-sm font-mono tracking-[0.1em] uppercase text-accent mb-2">
+              <p className="text-[10px] font-mono tracking-[0.2em] uppercase text-accent mb-3">
                 Featured Project
               </p>
-              <h3 className="text-3xl sm:text-4xl font-semibold tracking-tighter leading-[1.05]">
+              <h3 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tighter leading-[1.02]">
                 DLP Advisor
               </h3>
             </div>
@@ -65,14 +68,14 @@ export default function Projects() {
               {techStack.map((tech) => (
                 <span
                   key={tech}
-                  className="px-3 py-1 rounded-full bg-background text-sm text-foreground border border-border"
+                  className="px-3 py-1 rounded-full bg-background text-sm text-foreground"
                 >
                   {tech}
                 </span>
               ))}
             </div>
 
-            <div className="flex items-center gap-4 pt-2">
+            <div className="flex items-center gap-4 pt-1">
               <span className="text-sm text-muted font-mono">
                 Full-Stack Developer · Solo Project
               </span>
@@ -82,22 +85,24 @@ export default function Projects() {
               href="https://dlp-advisor-vnd3t.ondigitalocean.app/login"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-foreground text-background text-sm font-medium hover:opacity-85 transition-opacity"
+              className="group relative inline-flex items-center gap-3 px-6 py-3 rounded-full bg-foreground text-background text-sm font-medium transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.97] hover:opacity-90"
             >
               Live Demo
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M7 17L17 7" />
-                <path d="M7 7h10v10" />
-              </svg>
+              <span className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-[2px] group-hover:-translate-y-[1px] group-hover:scale-105">
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M7 17L17 7" />
+                  <path d="M7 7h10v10" />
+                </svg>
+              </span>
             </a>
           </div>
         </motion.div>

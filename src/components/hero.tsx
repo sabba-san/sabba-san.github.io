@@ -2,44 +2,34 @@
 
 import { motion } from "motion/react";
 import { LogoMark } from "./logo";
-
-const stagger = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.12, delayChildren: 0.25 },
-  },
-};
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const } },
-};
+import { staggerContainer, blurFadeUp } from "@/lib/motion";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[100dvh] flex items-center justify-center px-6 overflow-hidden">
+    <section className="relative min-h-[100dvh] flex items-center justify-center px-6 overflow-hidden pt-24">
       <motion.div
-        variants={stagger}
+        variants={staggerContainer}
         initial="hidden"
-        animate="show"
+        animate="visible"
         className="max-w-3xl mx-auto text-center"
       >
-        <motion.div variants={fadeUp} className="mb-8 flex justify-center">
-          <div className="w-14 h-14 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent">
-            <LogoMark className="w-7 h-7" />
+        <motion.div variants={blurFadeUp} className="mb-8 flex justify-center">
+          <div className="p-1.5 rounded-[1.25rem] bg-black/[0.04] dark:bg-white/[0.06] ring-1 ring-black/[0.04] dark:ring-white/[0.06]">
+            <div className="w-14 h-14 rounded-[calc(1.25rem-0.375rem)] bg-accent-soft flex items-center justify-center text-accent shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]">
+              <LogoMark className="w-7 h-7" />
+            </div>
           </div>
         </motion.div>
 
         <motion.p
-          variants={fadeUp}
-          className="text-xs font-mono tracking-[0.2em] uppercase text-muted mb-5"
+          variants={blurFadeUp}
+          className="text-[10px] font-mono tracking-[0.2em] uppercase text-muted mb-5 px-3 py-1 rounded-full inline-block"
         >
           Student &amp; Builder
         </motion.p>
 
         <motion.h1
-          variants={fadeUp}
+          variants={blurFadeUp}
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tighter leading-[0.95] text-balance"
         >
           Ahmad Abbas
@@ -49,25 +39,59 @@ export default function Hero() {
         </motion.h1>
 
         <motion.p
-          variants={fadeUp}
+          variants={blurFadeUp}
           className="mt-8 text-base sm:text-lg text-muted leading-relaxed max-w-2xl mx-auto"
         >
           Intelligent Systems student at UUM. Building legaltech tools for
           Malaysian homeowners. Telling stories through documentary photography.
         </motion.p>
 
-        <motion.div variants={fadeUp} className="mt-10 flex items-center justify-center gap-4">
+        <motion.div
+          variants={blurFadeUp}
+          className="mt-10 flex items-center justify-center gap-4"
+        >
           <a
             href="#projects"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-foreground text-background text-sm font-medium hover:opacity-85 transition-all active:scale-[0.97]"
+            className="group relative inline-flex items-center gap-3 px-6 py-3 rounded-full bg-foreground text-background text-sm font-medium transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.97] hover:opacity-90"
           >
             View Projects
+            <span className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-[2px] group-hover:-translate-y-[1px] group-hover:scale-105">
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="-rotate-45"
+              >
+                <path d="M5 12h14" />
+                <path d="M12 5l7 7-7 7" />
+              </svg>
+            </span>
           </a>
           <a
             href="#photography"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border text-sm font-medium hover:bg-surface transition-all active:scale-[0.97]"
+            className="group relative inline-flex items-center gap-3 px-6 py-3 rounded-full border border-border text-sm font-medium transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.97] hover:bg-surface"
           >
             Photography
+            <span className="w-7 h-7 rounded-full bg-black/[0.04] dark:bg-white/[0.06] flex items-center justify-center transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-[2px] group-hover:-translate-y-[1px] group-hover:scale-105">
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+                <circle cx="12" cy="13" r="4" />
+              </svg>
+            </span>
           </a>
         </motion.div>
       </motion.div>

@@ -18,9 +18,7 @@ export const metadata: Metadata = {
   description:
     "Portfolio of Ahmad Abbas Bin Abu Dzarr — IT student, builder of DLP Advisor, and documentary-style photographer.",
   icons: {
-    icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-    ],
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
   },
 };
 
@@ -35,6 +33,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
       <body className="min-h-dvh flex flex-col">
+        <div className="noise-overlay" />
         <Nav />
         <main className="flex-1">{children}</main>
       </body>
