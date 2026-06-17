@@ -71,8 +71,8 @@ export default function About() {
             <div className="p-1.5 rounded-[1.75rem] bg-black/[0.04] dark:bg-white/[0.06] ring-1 ring-black/[0.04] dark:ring-white/[0.06]">
               <div className="rounded-[calc(1.75rem-0.375rem)] overflow-hidden bg-surface aspect-[4/5] relative shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]">
                 <Image
-                  src="/photos/hobby/photo_1_2026-06-17_12-13-39.jpg"
-                  alt="Illuminated crescent moon and star decoration glowing in a tree at night"
+                  src="/photos/about me/DSC_9816 (1).JPG"
+                  alt="Portrait of Ahmad Abbas against a neutral background"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 40vw"
