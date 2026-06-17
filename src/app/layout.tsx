@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Nav from "@/components/nav";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -16,6 +17,11 @@ export const metadata: Metadata = {
   title: "Ahmad Abbas | Student & Builder",
   description:
     "Portfolio of Ahmad Abbas Bin Abu Dzarr — IT student, builder of DLP Advisor, and documentary-style photographer.",
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -28,7 +34,10 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
-      <body className="min-h-dvh flex flex-col">{children}</body>
+      <body className="min-h-dvh flex flex-col">
+        <Nav />
+        <main className="flex-1">{children}</main>
+      </body>
     </html>
   );
 }
