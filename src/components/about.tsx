@@ -29,7 +29,28 @@ export default function About() {
           <span className="text-[11px] text-muted font-light italic lowercase tracking-wide">about</span>
         </motion.div>
 
-        <div className="grid md:grid-cols-5 gap-12 md:gap-16">
+        <div className="grid md:grid-cols-5 gap-10 md:gap-16">
+          <motion.div
+            variants={blurFadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            className="md:col-span-2 md:row-span-2"
+          >
+            <div className="p-1.5 rounded-[2rem] bg-black/[0.04] dark:bg-white/[0.06] ring-1 ring-black/[0.04] dark:ring-white/[0.06]">
+              <div className="rounded-[calc(2rem-0.375rem)] overflow-hidden bg-surface aspect-[3/4] relative shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]">
+                <Image
+                  src="/photos/about me/DSC_9816 (1).JPG"
+                  alt="Portrait of Ahmad Abbas against a neutral background"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 40vw"
+                  priority
+                />
+              </div>
+            </div>
+          </motion.div>
+
           <motion.div
             variants={blurFadeUp}
             initial="hidden"
@@ -54,11 +75,6 @@ export default function About() {
               Liability Period (DLP). My goal is to simplify complex legal
               processes into accessible, conversational interfaces.
             </p>
-            <p className="text-base sm:text-lg text-muted leading-relaxed">
-              Beyond code, I specialize in documentary-style photography and
-              content creation. Every frame teaches me composition, patience,
-              and storytelling — principles I bring back to product design.
-            </p>
           </motion.div>
 
           <motion.div
@@ -66,21 +82,14 @@ export default function About() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
-            className="md:col-span-2 space-y-8"
+            className="md:col-span-3 space-y-6"
           >
-            <div className="p-1.5 rounded-[1.75rem] bg-black/[0.04] dark:bg-white/[0.06] ring-1 ring-black/[0.04] dark:ring-white/[0.06]">
-              <div className="rounded-[calc(1.75rem-0.375rem)] overflow-hidden bg-surface aspect-[4/5] relative shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]">
-                <Image
-                  src="/photos/about me/DSC_9816 (1).JPG"
-                  alt="Portrait of Ahmad Abbas against a neutral background"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 40vw"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-4">
+            <p className="text-base sm:text-lg text-muted leading-relaxed">
+              Beyond code, I specialize in documentary-style photography and
+              content creation. Every frame teaches me composition, patience,
+              and storytelling — principles I bring back to product design.
+            </p>
+            <div className="space-y-4 pt-4">
               <p className="text-[10px] font-mono tracking-[0.2em] uppercase text-muted">
                 Core Focus
               </p>
