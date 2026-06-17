@@ -35,15 +35,41 @@ export default function Projects() {
           viewport={{ once: true, amount: 0.3 }}
           className="grid md:grid-cols-2 gap-12 md:gap-16 items-start"
         >
-          <div className="p-1.5 rounded-[2rem] bg-black/[0.04] dark:bg-white/[0.06] ring-1 ring-black/[0.04] dark:ring-white/[0.06]">
-            <div className="rounded-[calc(2rem-0.375rem)] overflow-hidden bg-surface aspect-[4/3] relative shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]">
-              <Image
-                src="/photos/project/view pic.png"
-                alt="DLP Advisor 3D visualizer interface"
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
+          <div className="space-y-4">
+            <div className="p-1.5 rounded-[2rem] bg-black/[0.04] dark:bg-white/[0.06] ring-1 ring-black/[0.04] dark:ring-white/[0.06]">
+              <div className="rounded-[calc(2rem-0.375rem)] overflow-hidden bg-surface aspect-[4/3] relative shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]">
+                <Image
+                  src="/photos/project/view pic.png"
+                  alt="DLP Advisor 3D visualizer interface"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="p-1.5 rounded-[1.5rem] bg-black/[0.04] dark:bg-white/[0.06] ring-1 ring-black/[0.04] dark:ring-white/[0.06]">
+                <div className="rounded-[calc(1.5rem-0.375rem)] overflow-hidden bg-surface aspect-[4/3] relative shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]">
+                  <Image
+                    src="/photos/project/borang tuntutan .png"
+                    alt="DLP Advisor Borang Tuntutan PDF form"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                  />
+                </div>
+              </div>
+              <div className="p-1.5 rounded-[1.5rem] bg-black/[0.04] dark:bg-white/[0.06] ring-1 ring-black/[0.04] dark:ring-white/[0.06]">
+                <div className="rounded-[calc(1.5rem-0.375rem)] overflow-hidden bg-surface aspect-[4/3] relative shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]">
+                  <Image
+                    src="/photos/project/house dev related with homeowner.png"
+                    alt="DLP Advisor homeowner dashboard"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                  />
+                </div>
+              </div>
             </div>
           </div>
 
