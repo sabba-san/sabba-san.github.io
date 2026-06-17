@@ -7,6 +7,9 @@ import { staggerContainer, blurFadeUp } from "@/lib/motion";
 export default function Hero() {
   return (
     <section className="relative min-h-[100dvh] flex items-center justify-center px-6 overflow-hidden pt-24">
+      <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+        <div className="absolute -top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full bg-accent-soft/20 dark:bg-accent-soft/10 blur-3xl" />
+      </div>
       <motion.div
         variants={staggerContainer}
         initial="hidden"
@@ -52,7 +55,7 @@ export default function Hero() {
         >
           <a
             href="#projects"
-            className="group relative inline-flex items-center gap-3 px-6 py-3 rounded-full bg-foreground text-background text-sm font-medium transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.97] hover:opacity-90"
+            className="group relative inline-flex items-center gap-3 px-6 py-3 rounded-full bg-foreground text-background text-sm font-medium transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.97] hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
             View Projects
             <span className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-[2px] group-hover:-translate-y-[1px] group-hover:scale-105">
@@ -74,7 +77,7 @@ export default function Hero() {
           </a>
           <a
             href="#photography"
-            className="group relative inline-flex items-center gap-3 px-6 py-3 rounded-full border border-border text-sm font-medium transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.97] hover:bg-surface"
+            className="group relative inline-flex items-center gap-3 px-6 py-3 rounded-full border border-border text-sm font-medium transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.97] hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
             Photography
             <span className="w-7 h-7 rounded-full bg-black/[0.04] dark:bg-white/[0.06] flex items-center justify-center transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-[2px] group-hover:-translate-y-[1px] group-hover:scale-105">

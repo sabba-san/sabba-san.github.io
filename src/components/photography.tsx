@@ -26,7 +26,7 @@ function PhotoCard({
         delay: (index % 6) * 0.06,
       }}
       onClick={onClick}
-      className="masonry-item group w-full text-left"
+      className="masonry-item group w-full text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent rounded-[1.25rem]"
     >
       <div className="p-1 rounded-[1.25rem] bg-black/[0.03] dark:bg-white/[0.05] ring-1 ring-black/[0.03] dark:ring-white/[0.05] overflow-hidden">
         <div className="rounded-[calc(1.25rem-0.25rem)] overflow-hidden bg-surface relative shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]">
@@ -110,7 +110,7 @@ function Lightbox({
 
       <button
         onClick={onClose}
-        className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 backdrop-blur-xl flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 transition-all duration-300"
+        className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 backdrop-blur-xl flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
           <path d="M18 6L6 18" />
@@ -120,7 +120,7 @@ function Lightbox({
 
       <button
         onClick={(e) => { e.stopPropagation(); onPrev(); }}
-        className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 backdrop-blur-xl flex items-center justify-center text-white/70 hover:text-white hover:bg-white/20 transition-all duration-300"
+        className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 backdrop-blur-xl flex items-center justify-center text-white/70 hover:text-white hover:bg-white/20 transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
           <path d="M15 18l-6-6 6-6" />
@@ -129,7 +129,7 @@ function Lightbox({
 
       <button
         onClick={(e) => { e.stopPropagation(); onNext(); }}
-        className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 backdrop-blur-xl flex items-center justify-center text-white/70 hover:text-white hover:bg-white/20 transition-all duration-300"
+        className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 backdrop-blur-xl flex items-center justify-center text-white/70 hover:text-white hover:bg-white/20 transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
           <path d="M9 18l6-6-6-6" />
@@ -159,17 +159,18 @@ export default function Photography() {
   );
 
   return (
-    <section id="photography" className="px-6 py-40">
+    <section id="photography" className="px-6 pt-36 pb-44">
       <div className="max-w-6xl mx-auto">
-        <motion.p
+        <motion.div
           initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.7, ease: easeSmooth }}
-          className="text-[10px] font-mono tracking-[0.2em] uppercase text-muted mb-6"
+          className="flex items-center gap-3 mb-6"
         >
-          Photography
-        </motion.p>
+          <span className="text-[11px] text-muted font-light italic lowercase tracking-wide">lens</span>
+          <span className="h-px flex-1 bg-border/40" />
+        </motion.div>
 
         <motion.h2
           initial={{ opacity: 0, y: 32, filter: "blur(8px)" }}

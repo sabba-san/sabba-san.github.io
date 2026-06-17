@@ -13,17 +13,21 @@ const focuses = [
 
 export default function About() {
   return (
-    <section id="about" className="px-6 py-40">
+    <section id="about" className="relative px-6 pt-36 pb-44">
+      <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+        <div className="absolute -bottom-1/2 right-0 w-[600px] h-[600px] rounded-full bg-accent-soft/20 dark:bg-accent-soft/10 blur-3xl" />
+      </div>
       <div className="max-w-6xl mx-auto">
-        <motion.p
+        <motion.div
           initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.7, ease: easeSmooth }}
-          className="text-[10px] font-mono tracking-[0.2em] uppercase text-muted mb-20"
+          className="flex items-center gap-3 mb-14"
         >
-          About
-        </motion.p>
+          <span className="h-px flex-1 bg-border/40" />
+          <span className="text-[11px] text-muted font-light italic lowercase tracking-wide">about</span>
+        </motion.div>
 
         <div className="grid md:grid-cols-5 gap-12 md:gap-16">
           <motion.div
@@ -68,7 +72,7 @@ export default function About() {
               <div className="rounded-[calc(1.75rem-0.375rem)] overflow-hidden bg-surface aspect-[4/5] relative shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]">
                 <Image
                   src="/photos/hobby/photo_1_2026-06-17_12-13-39.jpg"
-                  alt="Documentary photograph"
+                  alt="Illuminated crescent moon and star decoration glowing in a tree at night"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 40vw"

@@ -14,16 +14,18 @@ const techStack = [
 
 export default function Projects() {
   return (
-    <section id="projects" className="px-6 py-40 bg-surface/40">
+    <section id="projects" className="px-6 pt-36 pb-44 bg-surface/40">
       <div className="max-w-6xl mx-auto">
         <motion.p
           initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.7, ease: easeSmooth }}
-          className="text-[10px] font-mono tracking-[0.2em] uppercase text-muted mb-20"
+          className="text-[10px] font-mono tracking-[0.2em] text-muted mb-16"
         >
-          Projects
+          <span className="text-accent">01</span>
+          <span className="text-border/50 mx-2">/</span>
+          <span>featured</span>
         </motion.p>
 
         <motion.div
@@ -81,11 +83,11 @@ export default function Projects() {
               </span>
             </div>
 
-            <a
-              href="https://dlp-advisor-vnd3t.ondigitalocean.app/login"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative inline-flex items-center gap-3 px-6 py-3 rounded-full bg-foreground text-background text-sm font-medium transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.97] hover:opacity-90"
+          <a
+            href="https://dlp-advisor-vnd3t.ondigitalocean.app/login"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative inline-flex items-center gap-3 px-6 py-3 rounded-full bg-foreground text-background text-sm font-medium transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.97] hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             >
               Live Demo
               <span className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-[2px] group-hover:-translate-y-[1px] group-hover:scale-105">

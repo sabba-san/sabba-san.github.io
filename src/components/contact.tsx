@@ -11,17 +11,19 @@ const links = [
 
 export default function Contact() {
   return (
-    <section id="contact" className="px-6 py-40 bg-surface/30">
+    <section id="contact" className="px-6 pt-36 pb-44 bg-surface/30">
       <div className="max-w-6xl mx-auto text-center">
-        <motion.p
+        <motion.div
           initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.7, ease: easeSmooth }}
-          className="text-[10px] font-mono tracking-[0.2em] uppercase text-muted mb-6"
+          className="flex items-center gap-3 mb-6"
         >
-          Connect
-        </motion.p>
+          <span className="h-px flex-1 bg-border/40" />
+          <span className="text-[11px] text-muted font-light italic lowercase tracking-wide">reach out</span>
+          <span className="h-px flex-1 bg-border/40" />
+        </motion.div>
 
         <motion.h2
           initial={{ opacity: 0, y: 32, filter: "blur(8px)" }}
@@ -59,7 +61,7 @@ export default function Contact() {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 text-sm font-medium text-muted hover:text-accent transition-colors duration-500"
+              className="group inline-flex items-center gap-2 text-sm font-medium text-muted hover:text-accent transition-colors duration-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent rounded-full"
             >
               {link.label}
               <span className="w-5 h-5 rounded-full bg-black/[0.03] dark:bg-white/[0.05] flex items-center justify-center transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-[2px] group-hover:-translate-y-[1px]">

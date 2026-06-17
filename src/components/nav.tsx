@@ -51,7 +51,7 @@ export default function Nav() {
         >
           <a
             href="#"
-            className="flex items-center gap-2 text-foreground px-2"
+            className="flex items-center gap-2 text-foreground px-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent rounded-lg"
             onClick={close}
           >
             <LogoMark className="w-[18px] h-[18px]" />
@@ -63,9 +63,9 @@ export default function Nav() {
           <ul className="hidden md:flex items-center gap-6 px-2">
             {links.map((link) => (
               <li key={link.href}>
-                <a
-                  href={link.href}
-                  className="text-[13px] text-muted hover:text-foreground transition-colors duration-300"
+                  <a
+                    href={link.href}
+                    className="text-[13px] text-muted hover:text-foreground transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent rounded"
                 >
                   {link.label}
                 </a>
@@ -75,7 +75,7 @@ export default function Nav() {
 
           <button
             onClick={() => setOpen(!open)}
-            className="relative w-8 h-8 flex items-center justify-center md:hidden"
+            className="relative w-8 h-8 flex items-center justify-center md:hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent rounded-lg"
             aria-label={open ? "Close menu" : "Open menu"}
           >
             <span
@@ -114,7 +114,7 @@ export default function Nav() {
                     ease: easeSpring,
                     delay: 0.08 + i * 0.07,
                   }}
-                  className="text-4xl sm:text-5xl font-semibold tracking-tighter text-foreground hover:text-accent transition-colors duration-300"
+                  className="text-4xl sm:text-5xl font-semibold tracking-tighter text-foreground hover:text-accent transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent rounded"
                 >
                   {link.label}
                 </motion.a>
