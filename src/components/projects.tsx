@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import { blurFadeUp, easeSmooth } from "@/lib/motion";
 
@@ -13,25 +13,25 @@ const techStack = [
 ];
 
 export default function Projects() {
+  const reduce = useReducedMotion();
+
   return (
     <section id="projects" className="px-6 pt-36 pb-44 bg-surface/40">
       <div className="max-w-6xl mx-auto">
         <motion.p
-          initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          initial={reduce ? false : { opacity: 0, y: 24, filter: "blur(6px)" }}
+          whileInView={reduce ? undefined : { opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.7, ease: easeSmooth }}
           className="text-[10px] font-mono tracking-[0.2em] text-muted mb-16"
         >
-          <span className="text-accent">01</span>
-          <span className="text-border/50 mx-2">/</span>
-          <span>featured</span>
+          featured
         </motion.p>
 
         <motion.div
-          variants={blurFadeUp}
-          initial="hidden"
-          whileInView="visible"
+          variants={reduce ? undefined : blurFadeUp}
+          initial={reduce ? false : "hidden"}
+          whileInView={reduce ? undefined : "visible"}
           viewport={{ once: true, amount: 0.3 }}
           className="grid md:grid-cols-2 gap-12 md:gap-16 items-start"
         >

@@ -1,19 +1,21 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { LogoMark } from "./logo";
 import { staggerContainer, blurFadeUp } from "@/lib/motion";
 
 export default function Hero() {
+  const reduce = useReducedMotion();
+
   return (
     <section className="relative min-h-[100dvh] flex items-center justify-center px-6 overflow-hidden pt-24">
       <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
         <div className="absolute -top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full bg-accent-soft/20 dark:bg-accent-soft/10 blur-3xl" />
       </div>
       <motion.div
-        variants={staggerContainer}
-        initial="hidden"
-        animate="visible"
+        variants={reduce ? undefined : staggerContainer}
+        initial={reduce ? false : "hidden"}
+        animate={reduce ? false : "visible"}
         className="max-w-3xl mx-auto text-center"
       >
         <motion.div variants={blurFadeUp} className="mb-8 flex justify-center">

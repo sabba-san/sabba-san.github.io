@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import { hobbyPhotos } from "@/lib/photos";
 import { easeSpring, easeSmooth } from "@/lib/motion";
@@ -15,10 +15,12 @@ function PhotoCard({
   index: number;
   onClick: () => void;
 }) {
+  const reduce = useReducedMotion();
+
   return (
     <motion.button
-      initial={{ opacity: 0, y: 40, filter: "blur(6px)" }}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      initial={reduce ? false : { opacity: 0, y: 40, filter: "blur(6px)" }}
+      whileInView={reduce ? undefined : { opacity: 1, y: 0, filter: "blur(0px)" }}
       viewport={{ once: true, amount: 0.15 }}
       transition={{
         duration: 0.8,
@@ -57,6 +59,7 @@ function Lightbox({
   onPrev: () => void;
   onNext: () => void;
 }) {
+  const reduce = useReducedMotion();
   const photo = hobbyPhotos[index];
 
   useEffect(() => {
@@ -76,20 +79,18 @@ function Lightbox({
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.35, ease: easeSpring }}
+      initial={reduce ? false : { opacity: 0 }}
+      animate={reduce ? false : { opacity: 1 }}
+      exit={undefined}
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-2xl p-4 sm:p-8"
       onClick={onClose}
     >
       <div className="flex items-center justify-center w-full max-w-5xl max-h-[85vh]">
         <motion.div
           key={index}
-          initial={{ scale: 0.92, opacity: 0, filter: "blur(8px)" }}
-          animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
-          exit={{ scale: 0.92, opacity: 0, filter: "blur(8px)" }}
-          transition={{ duration: 0.5, ease: easeSpring }}
+          initial={reduce ? false : { scale: 0.92, opacity: 0, filter: "blur(8px)" }}
+          animate={reduce ? false : { scale: 1, opacity: 1, filter: "blur(0px)" }}
+          exit={undefined}
           className="relative w-full h-full flex items-center justify-center"
           onClick={(e) => e.stopPropagation()}
         >
@@ -146,6 +147,7 @@ function Lightbox({
 }
 
 export default function Photography() {
+  const reduce = useReducedMotion();
   const [selected, setSelected] = useState<number | null>(null);
 
   const close = useCallback(() => setSelected(null), []);
@@ -162,8 +164,8 @@ export default function Photography() {
     <section id="photography" className="px-6 pt-36 pb-44">
       <div className="max-w-6xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          initial={reduce ? false : { opacity: 0, y: 24, filter: "blur(6px)" }}
+          whileInView={reduce ? undefined : { opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.7, ease: easeSmooth }}
           className="flex items-center gap-3 mb-6"
@@ -173,8 +175,8 @@ export default function Photography() {
         </motion.div>
 
         <motion.h2
-          initial={{ opacity: 0, y: 32, filter: "blur(8px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          initial={reduce ? false : { opacity: 0, y: 32, filter: "blur(8px)" }}
+          whileInView={reduce ? undefined : { opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.9, ease: easeSpring, delay: 0.1 }}
           className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tighter leading-[1.02] mb-4"
@@ -183,13 +185,13 @@ export default function Photography() {
         </motion.h2>
 
         <motion.p
-          initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          initial={reduce ? false : { opacity: 0, y: 24, filter: "blur(6px)" }}
+          whileInView={reduce ? undefined : { opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.7, ease: easeSmooth, delay: 0.2 }}
           className="text-base sm:text-lg text-muted leading-relaxed max-w-xl mb-16"
         >
-          Every frame teaches composition, patience, and storytelling —
+          Every frame teaches composition, patience, and           storytelling.
           principles I bring back to how I build products.
         </motion.p>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { easeSpring, easeSmooth } from "@/lib/motion";
 
 const links = [
@@ -10,12 +10,14 @@ const links = [
 ];
 
 export default function Contact() {
+  const reduce = useReducedMotion();
+
   return (
     <section id="contact" className="px-6 pt-36 pb-44 bg-surface/30">
       <div className="max-w-6xl mx-auto text-center">
         <motion.div
-          initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          initial={reduce ? false : { opacity: 0, y: 24, filter: "blur(6px)" }}
+          whileInView={reduce ? undefined : { opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.7, ease: easeSmooth }}
           className="flex items-center gap-3 mb-6"
@@ -26,8 +28,8 @@ export default function Contact() {
         </motion.div>
 
         <motion.h2
-          initial={{ opacity: 0, y: 32, filter: "blur(8px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          initial={reduce ? false : { opacity: 0, y: 32, filter: "blur(8px)" }}
+          whileInView={reduce ? undefined : { opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.9, ease: easeSpring, delay: 0.1 }}
           className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tighter leading-[1.02]"
@@ -38,19 +40,19 @@ export default function Contact() {
         </motion.h2>
 
         <motion.p
-          initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          initial={reduce ? false : { opacity: 0, y: 24, filter: "blur(6px)" }}
+          whileInView={reduce ? undefined : { opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.7, ease: easeSmooth, delay: 0.2 }}
           className="mt-6 text-base sm:text-lg text-muted leading-relaxed max-w-lg mx-auto"
         >
-          AI development, UI/UX, or Tech Strategy &mdash; I&apos;d love to hear
+          AI development, UI/UX, or Tech Strategy. I&apos;d love to hear
           from you.
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          initial={reduce ? false : { opacity: 0, y: 24, filter: "blur(6px)" }}
+          whileInView={reduce ? undefined : { opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.7, ease: easeSmooth, delay: 0.3 }}
           className="mt-12 flex items-center justify-center gap-8"
@@ -84,8 +86,8 @@ export default function Contact() {
         </motion.div>
 
         <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={reduce ? false : { opacity: 0 }}
+          whileInView={reduce ? undefined : { opacity: 1 }}
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           className="mt-24 text-[11px] text-muted font-mono tracking-wider"

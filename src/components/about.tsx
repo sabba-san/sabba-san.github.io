@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import { blurFadeUp, easeSmooth } from "@/lib/motion";
 
@@ -12,6 +12,8 @@ const focuses = [
 ];
 
 export default function About() {
+  const reduce = useReducedMotion();
+
   return (
     <section id="about" className="relative px-6 pt-36 pb-44">
       <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
@@ -19,8 +21,8 @@ export default function About() {
       </div>
       <div className="max-w-6xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          initial={reduce ? false : { opacity: 0, y: 24, filter: "blur(6px)" }}
+          whileInView={reduce ? undefined : { opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.7, ease: easeSmooth }}
           className="flex items-center gap-3 mb-14"
@@ -31,9 +33,9 @@ export default function About() {
 
         <div className="grid md:grid-cols-5 gap-10 md:gap-16">
           <motion.div
-            variants={blurFadeUp}
-            initial="hidden"
-            whileInView="visible"
+            variants={reduce ? undefined : blurFadeUp}
+            initial={reduce ? false : "hidden"}
+            whileInView={reduce ? undefined : "visible"}
             viewport={{ once: true, amount: 0.3 }}
             className="md:col-span-2 md:row-span-2"
           >
@@ -52,9 +54,9 @@ export default function About() {
           </motion.div>
 
           <motion.div
-            variants={blurFadeUp}
-            initial="hidden"
-            whileInView="visible"
+            variants={reduce ? undefined : blurFadeUp}
+            initial={reduce ? false : "hidden"}
+            whileInView={reduce ? undefined : "visible"}
             viewport={{ once: true, amount: 0.3 }}
             className="md:col-span-3 space-y-6"
           >
@@ -66,7 +68,7 @@ export default function About() {
             <p className="text-base sm:text-lg text-muted leading-relaxed">
               I&apos;m a third-year Information Technology student majoring in
               Intelligent Systems at Universiti Utara Malaysia. My passion lies
-              at the intersection of logic and creativity — using technology to
+              at the intersection of logic and creativity, using technology to
               solve real human problems.
             </p>
             <p className="text-base sm:text-lg text-muted leading-relaxed">
@@ -78,16 +80,16 @@ export default function About() {
           </motion.div>
 
           <motion.div
-            variants={blurFadeUp}
-            initial="hidden"
-            whileInView="visible"
+            variants={reduce ? undefined : blurFadeUp}
+            initial={reduce ? false : "hidden"}
+            whileInView={reduce ? undefined : "visible"}
             viewport={{ once: true, amount: 0.3 }}
             className="md:col-span-3 space-y-6"
           >
             <p className="text-base sm:text-lg text-muted leading-relaxed">
               Beyond code, I specialize in documentary-style photography and
               content creation. Every frame teaches me composition, patience,
-              and storytelling — principles I bring back to product design.
+              and storytelling. Principles I bring back to product design.
             </p>
             <div className="space-y-4 pt-4">
               <p className="text-[10px] font-mono tracking-[0.2em] uppercase text-muted">
